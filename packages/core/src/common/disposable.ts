@@ -32,8 +32,15 @@ export namespace Disposable {
 }
 
 export class DisposableCollection implements Disposable {
+
     protected readonly disposables: Disposable[] = [];
     protected readonly onDisposeEmitter = new Emitter<void>();
+
+    constructor(toDispose?: Disposable | Disposable[]) {
+        if (!!toDispose) {
+            (Array.isArray(toDispose) ? toDispose : [toDispose]).forEach(d => this.push(d));
+        }
+    }
 
     get onDispose(): Event<void> {
         return this.onDisposeEmitter.event;

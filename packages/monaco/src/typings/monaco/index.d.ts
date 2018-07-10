@@ -334,6 +334,7 @@ declare module monaco.services {
 
     export interface TokenTheme {
         match(languageId: string | undefined, scope: string): number;
+        _match(token: string): ThemeTrieElementRule;
         getColorMap(): Color[];
     }
 
@@ -346,6 +347,35 @@ declare module monaco.services {
         g: number;
         b: number;
         a: number;
+    }
+
+    /**
+     * A font style. Values are 2^x such that a bit mask can be used.
+     * @internal
+     */
+    export const enum FontStyle {
+        NotSet = -1,
+        None = 0,
+        Italic = 1,
+        Bold = 2,
+        Underline = 4
+    }
+
+    /**
+     * Open ended enum at runtime
+     * @internal
+     */
+    export const enum ColorId {
+        None = 0,
+        DefaultForeground = 1,
+        DefaultBackground = 2
+    }
+
+    export class ThemeTrieElementRule {
+        _fontStyle: FontStyle;
+        _foreground: ColorId;
+        _background: ColorId;
+        metadata: number;
     }
 
     export module StaticServices {

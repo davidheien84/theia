@@ -31,6 +31,7 @@ import { NavigationLocationUpdater } from './navigation/navigation-location-upda
 import { NavigationLocationService } from './navigation/navigation-location-service';
 import { NavigationLocationSimilarity } from './navigation/navigation-location-similarity';
 import { EditorVariableContribution } from './editor-variable-contribution';
+import { SemanticHighlightingService, NoopSemanticHighlightingService } from './semantic-highlight/semantic-highlighting-service';
 
 export default new ContainerModule(bind => {
     bindEditorPreferences(bind);
@@ -58,4 +59,7 @@ export default new ContainerModule(bind => {
     bind(NavigationLocationSimilarity).toSelf().inSingletonScope();
 
     bind(VariableContribution).to(EditorVariableContribution).inSingletonScope();
+
+    bind(NoopSemanticHighlightingService).toSelf().inSingletonScope();
+    bind(SemanticHighlightingService).to(NoopSemanticHighlightingService).inSingletonScope();
 });
